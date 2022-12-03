@@ -7,8 +7,8 @@ import dataexample from './data/d2p1-example.txt';
 import { renderIntoDocument } from 'react-dom/test-utils';
 
 function Day2Puzzle2() {
-  let url = data;
-  // let url = dataexample;
+  const url = data;
+  // const url = dataexample;
 
   // eslint-disable-next-line
   const [loading, setLoading] = useState(true);
@@ -27,12 +27,12 @@ function Day2Puzzle2() {
   function getAnswer() {
     // console.log('formattedData', formattedData);
 
-    let shapePoints = new Map();
+    const shapePoints = new Map();
     shapePoints.set('A', 1); //rock them
     shapePoints.set('B', 2); //paper them
     shapePoints.set('C', 3); //scissors them
 
-    let strategyOutcome = new Map();
+    const strategyOutcome = new Map();
     strategyOutcome.set('X', 1); // I need to lose (NOT rock me) 0
     strategyOutcome.set('Y', 2); // I need to draw (NOT paper me) 3
     strategyOutcome.set('Z', 3); // I need to win (NOT scissors me) 6
@@ -40,7 +40,7 @@ function Day2Puzzle2() {
 
     let myTotalScore = 0;
     for (let i = 0; i < formattedData.length; i++) {
-      let scoreForRound = getScoreForRound(formattedData[i]);
+      const scoreForRound = getScoreForRound(formattedData[i]);
       myTotalScore += scoreForRound;
     }
     //A=Rock 1pt, B=Paper 2pt, C=Scissors 3pt    them
@@ -49,9 +49,9 @@ function Day2Puzzle2() {
 
     function getScoreForRound(round: Array) {
       let totalPointsForRound = 0;
-      let theirLetter = round[0];
-      let myStrategyOutcomeLetter = round[1];
-      let myStrategyOutcome = strategyOutcome.get(myStrategyOutcomeLetter);
+      const theirLetter = round[0];
+      const myStrategyOutcomeLetter = round[1];
+      const myStrategyOutcome = strategyOutcome.get(myStrategyOutcomeLetter);
       // console.log(
       //   'theirletter',
       //   theirLetter,
@@ -61,7 +61,7 @@ function Day2Puzzle2() {
       //   myStrategyOutcome
       // );
 
-      let theirShapePoints = shapePoints.get(theirLetter);
+      const theirShapePoints = shapePoints.get(theirLetter);
       // console.log('theirShapePoints', theirShapePoints);
 
       let myMove = 0;
@@ -90,9 +90,9 @@ function Day2Puzzle2() {
         // 1+1=2, 2+1=3, 3+1=4
         if (myMove === 4) myMove = 1;
       }
-      let myResultsPoints = (myStrategyOutcome - 1) * 3;
+      const myResultsPoints = (myStrategyOutcome - 1) * 3;
       // console.log('myResultsPoints', myResultsPoints);
-      let myShapePoints = myMove;
+      const myShapePoints = myMove;
 
       // let myLetter = 3;
       // let myShapePoints = shapePoints.get(myLetter);
@@ -125,10 +125,11 @@ function Day2Puzzle2() {
       return totalPointsForRound;
     }
 
-    let answer = myTotalScore;
-    answer +=
+    const answer = myTotalScore;
+    const returnAnswer =
+      Number(answer) +
       ' = my total score for rock paper scissors using a strategy guide where second number is desired outcome for rock paper scissors. In order to decide whose tent gets closest to the snack storage.';
-    return answer;
+    return returnAnswer;
   }
 
   // ************************
@@ -139,11 +140,11 @@ function Day2Puzzle2() {
     // console.log('splitting up data');
     // , rawText =', rawText);
 
-    let arrayOfLines = rawText.split('\r\n');
+    const arrayOfLines = rawText.split('\r\n');
     // console.log('arrayOfLines', arrayOfLines);
-    let allRounds = [];
+    const allRounds = [];
     for (let i = 0; i < arrayOfLines.length; i++) {
-      let round = [];
+      const round = [];
       round.push(arrayOfLines[i][0]);
       round.push(arrayOfLines[i][2]);
       allRounds.push(round);
@@ -158,7 +159,7 @@ function Day2Puzzle2() {
   // ************************
 
   const gameLogic = () => {
-    let answer = getAnswer();
+    const answer = getAnswer();
     setFinalAnswer(answer);
   };
 
