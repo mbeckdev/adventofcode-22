@@ -7,7 +7,7 @@ import dataexample from './data/d3p1-example.txt';
 // eslint-disable-next-line
 import priorityData from './data/d3p1-priorities.txt';
 
-function Day3Puzzle1() {
+function Day3Puzzle2() {
   let url = data;
   // let url = dataexample;
   let urlPriority = priorityData;
@@ -41,66 +41,92 @@ function Day3Puzzle1() {
     // console.log('formattedData', formattedData);
     let prioritySumOfMatchingLetters = 0;
 
-    //what's the common letter?
-    // for each rucksack aka line in formattedData
-    for (let bagIndex = 0; bagIndex < formattedData.length; bagIndex++) {
-      const thisBag = formattedData[bagIndex]; //looks like ['asdf','aSGe']
-      // console.log('thisBag', thisBag);
+    let formattedDataInThrees = [];
+    for (let i = 0; i < formattedData.length; i = i + 3) {
+      let tempGroup = [];
+      // console.log('i ', i, 'formattedData[i]', formattedData[i]);
+      // console.log(formattedData[i])
+      tempGroup.push(formattedData[i]);
+      tempGroup.push(formattedData[i + 1]);
+      tempGroup.push(formattedData[i + 2]);
+      formattedDataInThrees.push(tempGroup);
+    }
+    // console.log('formattedDataInThrees', formattedDataInThrees);
 
-      //does first letter of second compartment = first letter of first compartment?
-      //does second letter of second compartment = first letter of first compartment?
+    let sumOfLetterPriorities = 0;
+
+    //for each group
+    for (
+      let groupIndex = 0;
+      groupIndex < formattedDataInThrees.length;
+      groupIndex++
+    ) {
       //
-      const firstCompartment = thisBag[0];
-      const secondCompartment = thisBag[1];
-      let continueSearchingForMatch = true;
+      // console.log(
+      //   'formattedDataInThrees[groupIndex]',
+      //   formattedDataInThrees[groupIndex]
+      // );
+      let thisGroup = formattedDataInThrees[groupIndex];
+      const commonLetterInGroup = getCommonLetterInGroup(thisGroup);
+      sumOfLetterPriorities += letterPriority.get(commonLetterInGroup);
 
-      //for all letters in first compartment
+      // console.log('common letter in group is', commonLetterInGroup);
+      // console.log(
+      //   'letterPriority.get(commonLetterInGroup)',
+      //   letterPriority.get(commonLetterInGroup)
+      // );
+    }
+
+    function getCommonLetterInGroup(group) {
+      let continueSearchingForMatch = true;
+      const bag1 = group[0][0];
+      const bag2 = group[1][0];
+      const bag3 = group[2][0];
+
+      //for all letters in the bag:
       for (
-        let firstCompartmentIndex = 0;
-        firstCompartmentIndex < thisBag[0].length;
-        firstCompartmentIndex++
+        let letterIndexBag1 = 0;
+        letterIndexBag1 < bag1.length;
+        letterIndexBag1++
       ) {
-        if (continueSearchingForMatch) {
-          //for all letters in second compartment
+        for (
+          let letterIndexBag2 = 0;
+          letterIndexBag2 < bag2.length;
+          letterIndexBag2++
+        ) {
           for (
-            let secondCompartmentIndex = 0;
-            secondCompartmentIndex < thisBag[1].length;
-            secondCompartmentIndex++
+            let letterIndexBag3 = 0;
+            letterIndexBag3 < bag3.length;
+            letterIndexBag3++
           ) {
-            if (continueSearchingForMatch) {
-              //does match?
-              if (
-                firstCompartment[firstCompartmentIndex] ===
-                secondCompartment[secondCompartmentIndex]
-              ) {
-                // console.log(
-                //   'matching letter = ',
-                //   firstCompartment[firstCompartmentIndex]
-                // );
-                prioritySumOfMatchingLetters += letterPriority.get(
-                  firstCompartment[firstCompartmentIndex]
-                );
-                continueSearchingForMatch = false;
-              }
+            // console.log('bag1[letterIndexBag1]', bag1[letterIndexBag1]);
+            // console.log('bag2[letterIndexBag2]', bag2[letterIndexBag2]);
+            // console.log('bag3[letterIndexBag3]', bag3[letterIndexBag3]);
+
+            // console.log('bag1[letterIndexBag1]', bag1[letterIndexBag1]);
+
+            if (
+              bag1[letterIndexBag1] === bag2[letterIndexBag2] &&
+              bag1[letterIndexBag1] === bag3[letterIndexBag3]
+            ) {
+              // it's a match
+              // console.log(
+              //   'common letter across this group is',
+              //   bag1[letterIndexBag1]
+              // );
+              return bag1[letterIndexBag1];
             }
           }
         }
       }
+
+      return 'no common letter in group';
     }
-
-    // console.log(
-    //   'prioritySum of matching letters',
-    //   prioritySumOfMatchingLetters
-    // );
-    //what priority number is this letter?
-    // console.log('rawPriorityText', rawPriorityText);
-
-    //answer = sum of all priority numbers of the common letters
 
     // console.log('formattedData from getAnser = ', formattedData);
     let answer = 3;
 
-    answer = prioritySumOfMatchingLetters;
+    answer = sumOfLetterPriorities;
     answer +=
       ' = sum of the matching letters of each rucksack. Who packed these anyway? - hey I made a Map() from a .txt file for the letterPriority!';
     return answer;
@@ -129,9 +155,10 @@ function Day3Puzzle1() {
       const halfRowLength = thisRow.length / 2;
 
       let newArrayForRow = [];
-      newArrayForRow.push(thisRow.slice(0, halfRowLength));
-      newArrayForRow.push(thisRow.slice(halfRowLength, thisRow.length));
-      // console.log('newArrayForRow', newArrayForRow);
+      newArrayForRow.push(thisRow);
+      // newArrayForRow.push(thisRow.slice(0, halfRowLength));
+      // newArrayForRow.push(thisRow.slice(halfRowLength, thisRow.length));
+      // // console.log('newArrayForRow', newArrayForRow);
       tempData.push(newArrayForRow);
     }
 
@@ -251,13 +278,13 @@ function Day3Puzzle1() {
   // ************************
 
   return (
-    <div className="day3Puzzle1">
-      <PuzzleRow title="Day 3 Puzzle 1" finalAnswer={finalAnswer} />
+    <div className="day3Puzzle2">
+      <PuzzleRow title="Day 3 Puzzle 2" finalAnswer={finalAnswer} />
     </div>
   );
 }
 
-export default Day3Puzzle1;
+export default Day3Puzzle2;
 
 // One Elf has the important job of loading all of the rucksacks with supplies for the jungle journey. Unfortunately, that Elf didn't quite follow the packing instructions, and so a few items now need to be rearranged.
 
