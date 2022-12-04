@@ -3,6 +3,7 @@ import Day1Puzzle1 from './Day1Puzzle1';
 import Day1Puzzle2 from './Day1Puzzle2';
 import Day2Puzzle1 from './Day2Puzzle1';
 import Day2Puzzle2 from './Day2Puzzle2';
+import Day3Puzzle1 from './Day3Puzzle1';
 // import Day2Puzzle2 from './Day2Puzzle2';
 
 function PuzzleContainer() {
@@ -13,6 +14,7 @@ function PuzzleContainer() {
       <Day1Puzzle2 />
       <Day2Puzzle1 />
       <Day2Puzzle2 />
+      <Day3Puzzle1 />
     </div>
   );
 }

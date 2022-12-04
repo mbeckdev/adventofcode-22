@@ -5,7 +5,7 @@ import data from './data/d1p1.txt';
 // eslint-disable-next-line
 import dataexample from './data/d1p1-example.txt';
 
-function Day1Puzzle2() {
+function Day1Puzzle1() {
   let url = data;
   // let url = dataexample;
 
@@ -112,7 +112,6 @@ function Day1Puzzle2() {
   // REACT STUFF
   // ************************
 
-function Day1Puzzle1() {
   return (
     <div className="day1Puzzle1">
       <PuzzleRow title="Day 1 Puzzle 1" finalAnswer={finalAnswer} />
