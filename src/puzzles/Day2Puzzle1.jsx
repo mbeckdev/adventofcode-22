@@ -76,6 +76,7 @@ function Day2Puzzle1() {
       // console.log('myShapePoints', myShapePoints);
       // console.log('myResultsPoints', myResultsPoints);
       // console.log('totalPointsForRound', totalPointsForRound);
+      // console.log(`asdfa ${somevariable} asdfasd`);
       return totalPointsForRound;
     }
 
@@ -97,9 +98,10 @@ function Day2Puzzle1() {
     // console.log('arrayOfLines', arrayOfLines);
     let allRounds = [];
     for (let i = 0; i < arrayOfLines.length; i++) {
+      // console.log('asdfasdf');
       let round = [];
       round.push(arrayOfLines[i][0]);
-      round.push(arrayOfLines[i][2]);
+      round.push(arrayOfLines[i][2]); //['a','x']
       allRounds.push(round);
     }
     // console.log('allRounds', allRounds);

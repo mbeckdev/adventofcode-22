@@ -128,7 +128,7 @@ function Day3Puzzle2() {
 
     answer = sumOfLetterPriorities;
     answer +=
-      ' = sum of the matching letters of each rucksack. Who packed these anyway? - hey I made a Map() from a .txt file for the letterPriority!';
+      ' = sum of the matching letters of group of three elf rucksacks, not split in half. - This is turning into one of those nightmares where all I do is pack and worry about forgetting to pack things.';
     return answer;
   }
 
