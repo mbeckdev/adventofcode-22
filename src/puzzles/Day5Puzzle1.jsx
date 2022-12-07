@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import PuzzleRow from './PuzzleRow';
 // eslint-disable-next-line
-import data from './data/d10p1.txt';
+import data from './data/d5p1.txt';
 // eslint-disable-next-line
-import dataexample from './data/d10p1-example.txt';
+import dataexample from './data/d5p1-example.txt';
 
-function Day10Puzzle1() {
+function Day5Puzzle1() {
   let url = data;
   // let url = dataexample;
 
@@ -112,9 +112,9 @@ function Day10Puzzle1() {
 
   return (
     <div className="day1Puzzle1">
-      <PuzzleRow title="Day 10 Puzzle 1" finalAnswer={finalAnswer} />
+      <PuzzleRow title="Day 5 Puzzle 1" finalAnswer={finalAnswer} />
     </div>
   );
 }
 
-export default Day10Puzzle1;
+export default Day5Puzzle1;
