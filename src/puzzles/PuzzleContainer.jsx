@@ -11,6 +11,7 @@ import Day4Puzzle2 from './Day4Puzzle2';
 import Day5Puzzle1 from './Day5Puzzle1';
 import Day5Puzzle2 from './Day5Puzzle2';
 import Day6Puzzle1 from './Day6Puzzle1';
+import Day6Puzzle2 from './Day6Puzzle2';
 import Day7Puzzle1 from './Day7Puzzle1';
 import Day8Puzzle1 from './Day8Puzzle1';
 import Day9Puzzle1 from './Day9Puzzle1';
@@ -31,6 +32,7 @@ function PuzzleContainer() {
       <Day5Puzzle1 />
       <Day5Puzzle2 />
       <Day6Puzzle1 />
+      <Day6Puzzle2 />
       <Day7Puzzle1 />
       <Day8Puzzle1 />
       <Day9Puzzle1 />
