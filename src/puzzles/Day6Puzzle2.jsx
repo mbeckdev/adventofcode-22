@@ -77,7 +77,7 @@ function Day6Puzzle2() {
 
     answer = indexInEnglish;
     answer +=
-      ' = The place wher the first start-of-packet marker is complete after this many characters have been processed checking for now 14 chars that are different! Maps are cool, .has("thing"). - ' +
+      ' = The place where the first start-of-packet marker is complete after this many characters have been processed checking for now 14 chars that are different! Maps are cool, .has("thing"). - ' +
       'Still using some broken device to communicate with weird signals, now start of phrases. What are we even communicated with these?';
     return answer;
   }

@@ -77,7 +77,7 @@ function Day6Puzzle1() {
 
     answer = indexInEnglish;
     answer +=
-      ' = The place wher the first start-of-packet marker is complete after this many characters have been processed checking for 4 chars that are different. - Using some broken device to communicate with weird signals. The elves are on the move now!';
+      ' = Using some broken device to communicate with weird signals. The elves are on the move now! This is the place where the first start-of-packet marker is complete after this many characters have been processed checking for 4 chars that are different.';
     return answer;
   }
 
