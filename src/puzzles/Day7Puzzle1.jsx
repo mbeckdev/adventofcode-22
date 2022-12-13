@@ -17,27 +17,21 @@ function Day7Puzzle1() {
   // let finalAnswer = 'blah is my TBD answer';
 
   const [rawText, setRawText] = useState(null);
-  let formattedData = {};
+  let formattedData = [];
 
   // ************************
   // ANSWER LOGIC
   // ************************
 
   function getAnswer() {
-    // console.log('formattedData', formattedData);
-    // should look like
-    // {
-    //   a:{},
-    //   b.txt:{name:'b.txt',type:'file',size:14848514}
-    // }
     let files = {};
     files = formattedData;
     let bfile = { name: 'b.txt', type: 'file', size: 14848514 };
     let adir = { name: 'a', type: 'folder' };
     // files.push(afile);
-    console.log('bfile.name', bfile.name);
+    // console.log('bfile.name', bfile.name);
     files[bfile.name] = bfile; //files['b'] = bfile;
-    console.log('files', files);
+    // console.log('files', files);
     // console.log('bname', files.b.name);
 
     let answer = 3;
@@ -57,10 +51,10 @@ function Day7Puzzle1() {
 
     let arrayOfLines = rawText.split('\r\n');
     console.log(arrayOfLines);
-    let topFolder = { name: '', type: 'folder' }; //top
-    let currentFilePath = topFolder.name;
+    let topFolder = 'top';
+    let currentFilePath = topFolder;
     let currentFolder; //a or b or c or '/'
-    let currentFolderArr; // ['','a']
+    let currentFolderArr; // ['top','a']
 
     //for each line
     for (let i = 0; i < arrayOfLines.length; i++) {
@@ -70,36 +64,61 @@ function Day7Puzzle1() {
         let command = arrayOfLines[i].slice(2);
         let firstTwoChars = command.slice(0, 2);
 
-        // console.log('command', command);
-        // console.log('firstTwoChars=' + firstTwoChars);
+        console.log('command', command);
+        console.log('firstTwoChars=' + firstTwoChars);
 
         if (firstTwoChars == 'cd') {
           // command = 'cd /' or 'cd ..' or 'cd a' or 'cd b'...
           let afterTheCd = command.slice(3); //a
-          // console.log('afterthecd=' + afterTheCd);
 
           if (afterTheCd == '/') {
             // 'cd /' - move currentFolder to top
-            currentFolder = topFolder;
-            currentFolderArr = [''];
-            currentFilePath = topFolder.name; // '/'
+            currentFolder = topFolder; // 'top'
+            currentFolderArr = ['top'];
+            currentFilePath = topFolder; // 'top'
           } else if (afterTheCd == '..') {
             // 'cd ..'
             // go up a folder....
+
+            // currentFolder = 'a'
+            // currentFilePath = // 'top/a' , now want 'top'
+            console.log(
+              '"cd .." just happened, currentFilePath =' +
+                currentFilePath +
+                ' and currentFolder=' +
+                currentFolder +
+                ' and currentFolderArr=',
+              currentFolderArr
+            );
+
+            let indexOfFolderAtEnd = currentFilePath.lastIndexOf(currentFolder);
+            currentFilePath = currentFilePath.slice(0, indexOfFolderAtEnd - 1); // 'top/a' will now be 'top'
+            currentFolderArr.pop(); // was ['top','a']  now is ['top']
+            currentFolder = currentFolderArr[currentFolderArr.length - 1]; //now is 'top'
+
+            console.log(
+              '"cd .." just happened afterdoingstuff, currentFilePath =' +
+                currentFilePath +
+                ' and currentFolder=' +
+                currentFolder +
+                ' and currentFolderArr=',
+              currentFolderArr
+            );
           } else {
-            //a
+            // a
             // wants to change into a folder inside of current folder.
-            let childFolderToSwitchTo = afterTheCd; //a
-            console.log('childFolderToSwitchTo=' + childFolderToSwitchTo);
-            currentFolder += `/${afterTheCd}`;
-            currentFolderArr.push(afterTheCd); //['','a'] after pushing a
-            // currentFolder = files[/][a][childFolderToSwitchTo]
-            // currentFolder = currentFolder[childFolderToSwitchTo];
+            // let childFolderToSwitchTo = afterTheCd; //a
+            currentFilePath += `/${afterTheCd}`;
+            currentFolder = afterTheCd;
+            currentFolderArr.push(afterTheCd); //['top','a'] after pushing a
+            console.log('go deeper- currentFolder = ', currentFolder);
+            console.log('go deeper- currentFilePath = ', currentFilePath);
+            console.log('go deeper- currentFolderArr', currentFolderArr);
           }
         } else if (firstTwoChars == 'ls') {
           // '$ ls'
           //do nothing, next loop line will cover it
-          //everything after this is a folder or file that we should write to an object
+          //everything after this is a folder or file that we should write to ...something..one big object?
           // console.log('current folder is ', currentFolder);
           // console.log('current folder name is=' + currentFolder.name);
           //stop when next index is end or is a new command.
@@ -109,58 +128,59 @@ function Day7Puzzle1() {
         // add a file or folder where we are
         //************************************ */
         console.log(
-          '**about to add file or folder, currentFilePath=',
-          currentFilePath
+          '**about to add file or folder, currentFilePath=' + currentFilePath
         );
 
         let thisString = arrayOfLines[i];
         let thisStringSplit = thisString.split(' ');
-        let newObjToAdd = {};
+        // let newObjToAdd = {};
+        let newFileObj = {
+          type: 'file',
+          name: undefined,
+          filepath: undefined,
+          size: undefined,
+        };
+        let newFolderObj = {
+          type: 'folder',
+          name: undefined,
+          filepath: undefined,
+        };
+
         if (thisStringSplit[0] == 'dir') {
           //it's a folder
-          newObjToAdd.type = 'folder';
-          newObjToAdd.name = thisStringSplit[1];
+          newFolderObj.name = thisStringSplit[1];
+          console.log(
+            'about to add new folder, currentFilePath = ',
+            currentFilePath
+          );
+          newFolderObj.filepath = currentFilePath;
         } else {
           // it's a file
-          newObjToAdd.type = 'file';
-          newObjToAdd.name = thisStringSplit[1];
-          newObjToAdd.size = thisStringSplit[0];
+
+          newFileObj.name = thisStringSplit[1];
+          newFileObj.size = thisStringSplit[0];
+          newFileObj.filepath = currentFilePath;
         }
 
         //***************************** */
         //where to add??
         //***************************** */
 
-        console.log(
-          'access(formattedData, currentFolderArr)',
-          access(formattedData, currentFolderArr)
-        );
-        console.log('z-currentFolderArr', currentFolderArr);
-        console.log('z-formattedData', formattedData);
-        if (currentFilePath == '' && !!formattedData) {
-          //'top'
-          formattedData[newObjToAdd.name] = newObjToAdd;
+        if (newFileObj.name !== undefined) {
+          formattedData.push(newFileObj);
+        } else if (newFolderObj !== undefined) {
+          formattedData.push(newFolderObj);
         } else {
-          // not top folder, add to here.
-          console.log('=======currentFilePath=' + currentFilePath);
-          // currentFolderArr = //['','a']
-          console.log(
-            'looking in a folder - access(formattedData,currentFolderArr)',
-            access(formattedData, currentFolderArr)
-          );
-
-          //check for if it exists already??
-          //parse the currentFilePath
-
-          // formattedData[a][d][somefolder] = newDataObjToAdd;
-          // let multipleFolders = ['','a']
-          console.log('formattedDataaaaa', formattedData);
+          console.error('error in pushing an object into the formattedData');
         }
-        // console.log('22222formattedData', formattedData);
       }
     }
 
-    formattedData = {};
+    console.log(
+      'done splitting up data, formatted Data looks like',
+      formattedData
+    );
+    // formattedData = [];
   };
 
   function access(obj, properties) {
