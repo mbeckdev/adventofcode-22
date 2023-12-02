@@ -8,6 +8,7 @@ import dataexample from './data/d1p1-example.txt';
 function Day1Puzzle1() {
   let url = data;
   // let url = dataexample;
+  // yay puzzles
 
   // eslint-disable-next-line
   const [loading, setLoading] = useState(true);
